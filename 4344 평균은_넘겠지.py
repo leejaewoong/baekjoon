@@ -1,4 +1,4 @@
-# 대학생 새내기들의 90%는 자신이 반에서 평균은 넘는다고 생각한다. 당신은 그들에게 슬픈 진실을 알려줘야 한다.
+# 문제 링크: https://www.acmicpc.net/problem/4344
 
 def feelAvg():
     caseNumber = int(input())
@@ -9,8 +9,7 @@ def feelAvg():
         for i in range(1, students+1):
             result = report[i]
             results.append(result)
-        totalResults = sum(results)
-        average = totalResults/students
+        average = sum(results)/students        
         modelStudents = 0
         for i in range(1, students+1):                        
             score = report[i]

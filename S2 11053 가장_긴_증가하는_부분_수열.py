@@ -1,28 +1,48 @@
-# 문제 링크: https://www.acmicpc.net/problem/11053
-
 from bisect import bisect_left
-from collections import deque
 import sys
 input = sys.stdin.readline
 
-N = int(input())
-target = list(map(int, input().split()))
-temp = deque()
+n = int(input())
+array = [i for i in list(map(int, input().split()))]
 
-for i in range(len(target)):
-    if not temp: 
-        temp.append(target[i])
-        continue
 
-    elif temp[-1] < target[i]:
-        temp.append(target[i])
-        continue
+# 재귀 함수로 해결
+def getLis(prev, next): 
+    if next == len(array):
+        return 0
     
-    else:
-        idx = bisect_left(temp, target[i])
-        temp[idx] = target[i]
-        continue
+    skip = getLis(prev, next+1)
 
-ans = len(temp)
+    take = 0
+    if prev == -1 or array[prev] < array[next]:
+        take = getLis(next, next+1) + 1
 
-print(ans)
+    return max(skip, take)
+
+print(getLis(-1,0))
+
+
+# DP: bottom-up으로 해결
+dp = [1] * (n)
+
+for i in range(1, n):
+    for j in range(i):
+        if array[j] < array[i]:
+            dp[i] = max(dp[i], dp[j]+1)
+
+print(max(dp))
+
+
+# 이분탐색 기반의 그리디 + DP로 해결
+result = [array[0]]
+
+for j in array:
+    i = result[-1]
+
+    if i < j:
+        result.append(j)
+    elif i > j:        
+        result[bisect_left(result, j)] = j
+
+print(len(result))
+

@@ -1,9 +1,7 @@
 # %%
+from bisect import bisect_left
 
-X = 6/2
-Y = X%3
-print(X, Y)
-if Y == 0:
-    print('yes')
+list = [10, 11, 20]
+print(bisect_left(list, 11))
 
 # %%
